@@ -1,12 +1,14 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    public VehicleData vehicleData;
-    private PlayerMovement playerMovement;
-    private FollowRoad followRoad;
+    [Header("Speed variables")]
+    public float speed;
+    public float maxSwerve;
 
+    
     private void OnEnable()
     {
         EventManager.StartListening(Events.VehicleChange, OnVehicleChange);
@@ -19,30 +21,8 @@ public class Vehicle : MonoBehaviour
 
     private void OnVehicleChange(EventParam param)
     {
-        SusPooler.instance.SpawnFromPool("SmokePoofs", playerMovement.transform.localPosition, Quaternion.identity);
+        var poof = SusPooler.instance.SpawnFromPool("SmokePoofs", transform.position, Quaternion.identity);
+        //poof.transform.parent = playerMovement.transform;
     }
 
-    private void Awake()
-    {
-        playerMovement = GetComponentInChildren<PlayerMovement>();
-        followRoad = GetComponent<FollowRoad>();
-    }
-
-    public void SetVehicleData(VehicleData data)
-    {
-        vehicleData = data;
-        playerMovement.maxSwerveAmount = data.swerveSpeed;
-        followRoad.speed = data.moveSpeed;
-    }
-
-    private void Start()
-    {
-        playerMovement.maxSwerveAmount = vehicleData.swerveSpeed;
-        followRoad.speed = vehicleData.moveSpeed;
-    }
-    
-    private void Update()
-    {
-        
-    }
 }

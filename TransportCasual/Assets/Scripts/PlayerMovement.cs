@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float swerveSpeed = 0.5f;
-    public float maxSwerveAmount = 1f;
     public float roadEdgeMargin = .1f;
 
+    private const float swerveSpeed = 0.5f;
     private SwerveInput swerveInputHandler;
+    private Vehicle vehicle;
     private float swerveAmount;
 
     private float roadWidth;
@@ -20,17 +20,18 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         swerveInputHandler = GetComponent<SwerveInput>();
+        vehicle = GetComponentInParent<Vehicle>();
     }
 
     private void Start()
     {
-        roadWidth = GetComponentInParent<FollowRoad>().RoadMeshCreator.roadWidth;
+        roadWidth = transform.parent.parent.GetComponent<Player>().RoadMeshCreator.roadWidth;
     }
 
     private void Update()
     {
         swerveAmount = Time.deltaTime * swerveSpeed * swerveInputHandler.MoveFactorX;
-        swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
+        swerveAmount = Mathf.Clamp(swerveAmount, -vehicle.maxSwerve, vehicle.maxSwerve);
         TranslateCheck(swerveAmount);
     }
 

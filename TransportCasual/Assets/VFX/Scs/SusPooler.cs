@@ -57,8 +57,8 @@ public class SusPooler : MonoBehaviour
         }
 
         GameObject objToSpawn = poolDictionary[tag].Dequeue();
-
         objToSpawn.SetActive(true);
+        objToSpawn.transform.parent = gameObject.transform;
         objToSpawn.transform.position = position;
         objToSpawn.transform.rotation = rotation;
 
