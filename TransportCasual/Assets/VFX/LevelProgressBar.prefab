@@ -437,6 +437,7 @@ MonoBehaviour:
   uiFillImage: {fileID: 7364953943914630324}
   uiStartText: {fileID: 2560341030847798906}
   uiEndText: {fileID: 6032948967928803167}
+  maxDistance: 100
 --- !u!1 &8008664562240231779
 GameObject:
   m_ObjectHideFlags: 0
