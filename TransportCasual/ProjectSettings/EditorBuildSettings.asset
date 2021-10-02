@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Amogus.unity
+    guid: eb4976b890cbd7e4ca095f24db7107c7
   m_configObjects: {}
