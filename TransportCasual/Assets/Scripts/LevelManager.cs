@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
         }
         currentLevel = Instantiate(levels[currentLevelNumber], transform);
     }
-    private void NextLevel()
+    public void NextLevel()
     {
         if (currentLevel != null)
         {
