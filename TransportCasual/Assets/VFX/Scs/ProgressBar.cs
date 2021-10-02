@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,14 @@ using UnityEngine.VFX;
 
 public class ProgressBar : MonoBehaviour
 {
-    [SerializeField] private float startProgress;
-    [SerializeField] private float maxProgress, chipSpeed;
-    [SerializeField] private Image frontBar, backBar;
+    [SerializeField]
+    private float startProgress;
+
+    [SerializeField]
+    private float maxProgress, chipSpeed;
+
+    [SerializeField]
+    private Image frontBar, backBar;
 
     private float lerpTimer;
 
@@ -21,6 +27,21 @@ public class ProgressBar : MonoBehaviour
     {
         get { return startProgress; }
         set { startProgress = value; }
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening(Events.MoneyCollect, OnCollect);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(Events.MoneyCollect, OnCollect);
+    }
+
+    private void OnCollect(EventParam param)
+    {
+        changeProgress(param.intParam);
     }
 
     // Start is called before the first frame update
@@ -87,15 +108,17 @@ public class ProgressBar : MonoBehaviour
     {
         if (finalValue == 0)
         {
-            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0,0,-1), Quaternion.identity);
+            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
         }
-        else if (finalValue == maxProgress/2)
+        else if (finalValue == maxProgress / 2)
         {
             SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam());
         }
         else if (finalValue == maxProgress)
         {
             SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+            EventManager.TriggerEvent(Events.LevelFinished, new EventParam());
         }
     }
 
@@ -103,6 +126,6 @@ public class ProgressBar : MonoBehaviour
     {
         currentProgress = progress + amount;
         progress += amount;
-        lerpTimer = 0f;       
+        lerpTimer = 0f;
     }
 }

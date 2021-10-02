@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Car
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  swerveSpeed: 1
+  swerveSpeed: 2

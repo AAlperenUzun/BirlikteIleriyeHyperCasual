@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float swerveAmount;
 
     private float roadWidth;
-    private float RoadMin => (roadWidth - 0.5f) * -1;
+    private float RoadMin => RoadMax * -1;
     private float RoadMax => roadWidth - 0.5f;
     
 

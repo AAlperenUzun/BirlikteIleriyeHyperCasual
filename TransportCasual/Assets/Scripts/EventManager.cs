@@ -5,8 +5,10 @@ using UnityEngine;
 
 public enum Events
 {
+    StartTap,
     MoneyCollect,
-    VehicleChange
+    VehicleChange,
+    LevelFinished
 }
 
 public class EventManager : MonoBehaviour
@@ -79,7 +81,7 @@ public class EventManager : MonoBehaviour
 public struct EventParam
 {
     public string param1;
-    public int param2;
+    public int intParam;
     public float param3;
     public bool param4;
 }
