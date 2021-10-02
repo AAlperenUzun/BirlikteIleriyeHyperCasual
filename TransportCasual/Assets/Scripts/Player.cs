@@ -7,8 +7,7 @@ public class Player : MonoBehaviour
     private int currentVehicleIndex;
     private Transform currentVehicle;
 
-    [SerializeField]
-    private PathCreator pathCreator;
+    public PathCreator pathCreator;
 
     private Vehicle vehicle;
 
