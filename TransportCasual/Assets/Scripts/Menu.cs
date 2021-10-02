@@ -25,6 +25,12 @@ public class Menu : MonoBehaviour
         currentStatus[1].SetActive(false);
         currentStatus[2].SetActive(true);
     }
+    public void BeforeStart()
+    {
+        currentStatus[0].SetActive(true);
+        currentStatus[1].SetActive(false);
+        currentStatus[2].SetActive(false);
+    }
     public void Settings()
     {
         settings.SetActive(true);
@@ -57,6 +63,7 @@ public class Menu : MonoBehaviour
     public void NextScene()
     {
         levelManager.NextLevel();
+        BeforeStart();
     }
     public void CloseSound()
     {
