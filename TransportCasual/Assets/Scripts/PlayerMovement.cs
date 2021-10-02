@@ -5,40 +5,51 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float roadEdgeMargin = .1f;
-
-    private const float swerveSpeed = 0.5f;
-    private SwerveInput swerveInputHandler;
-    private Vehicle vehicle;
-    private float swerveAmount;
-
-    private float roadWidth;
-    private float RoadMin => RoadMax * -1;
-    private float RoadMax => roadWidth - 0.5f;
-    
-
-    private void Awake()
-    {
-        swerveInputHandler = GetComponent<SwerveInput>();
-        vehicle = GetComponentInParent<Vehicle>();
-    }
+    [SerializeField] private float swipeMoveSpeed;
+    private Rigidbody rb;
+    private float noTouchTimer;
 
     private void Start()
     {
-        roadWidth = transform.parent.parent.GetComponent<Player>().RoadMeshCreator.roadWidth;
+        rb = GetComponent<Rigidbody>();
+    }
+    private void OnEnable()
+    {
+        SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
+    }
+    private void OnDisable()
+    {
+        SwipeDetector.OnSwipe -= SwipeDetector_OnSwipe;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        swerveAmount = Time.deltaTime * swerveSpeed * swerveInputHandler.MoveFactorX;
-        swerveAmount = Mathf.Clamp(swerveAmount, -vehicle.maxSwerve, vehicle.maxSwerve);
-        TranslateCheck(swerveAmount);
+        StopIfNoTouch();
     }
 
-    private void TranslateCheck(float swerve)
+    private void SwipeDetector_OnSwipe(SwipeData data)
     {
-        if (swerve > 0 && (RoadMax - transform.localPosition.y) < roadEdgeMargin) return;
-        if (swerve < 0 && (transform.localPosition.y - RoadMin) < roadEdgeMargin) return;
-        transform.Translate(0, swerve, 0);
+        noTouchTimer = 0.1f;
+        int direction = data.Direction == SwipeDirection.Left ? 1 : -1;
+
+        Vector3 velocity = rb.velocity;
+        velocity.x = direction * data.Distance / 10f * swipeMoveSpeed;
+        rb.velocity = velocity;
     }
+
+    private void StopIfNoTouch()
+    {
+        if (noTouchTimer >= 0f)
+        {
+            noTouchTimer -= Time.deltaTime;
+        }
+        else
+        {
+            Vector3 velocity = rb.velocity;
+            velocity.x = 0f;
+            rb.velocity = velocity;
+        }
+    }
+
+
 }

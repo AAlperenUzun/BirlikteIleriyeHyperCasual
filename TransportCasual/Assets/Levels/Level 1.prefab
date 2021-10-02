@@ -119,7 +119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4107970294339186930}
-  m_LocalRotation: {x: 0.33490917, y: 1e-45, z: -0, w: 0.94225043}
+  m_LocalRotation: {x: 0.33490917, y: -3e-45, z: 1e-45, w: 0.94225043}
   m_LocalPosition: {x: 0, y: 6.55, z: -8.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -550,6 +550,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3305989363451816415}
     m_Modifications:
+    - target: {fileID: 36110182432745006, guid: 57e7fe71e9fe7e34999611160846117a, type: 3}
+      propertyPath: swipeMoveSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2823102844826324808, guid: 57e7fe71e9fe7e34999611160846117a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -598,11 +602,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bike
       objectReference: {fileID: 0}
+    - target: {fileID: 6207034927809362818, guid: 57e7fe71e9fe7e34999611160846117a, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6926537195170875671, guid: 57e7fe71e9fe7e34999611160846117a, type: 3}
       propertyPath: speed
       value: 15
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5938852226285665172, guid: 57e7fe71e9fe7e34999611160846117a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 57e7fe71e9fe7e34999611160846117a, type: 3}
 --- !u!4 &3527892554576042423 stripped
 Transform:
@@ -616,6 +625,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3305989363451816415}
     m_Modifications:
+    - target: {fileID: 36110182432745006, guid: f68f446eb2bbca244a3b0477f57f2612, type: 3}
+      propertyPath: swipeMoveSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2823102844826324808, guid: f68f446eb2bbca244a3b0477f57f2612, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -668,7 +681,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6207034927809362818, guid: f68f446eb2bbca244a3b0477f57f2612, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5938852226285665172, guid: f68f446eb2bbca244a3b0477f57f2612, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f68f446eb2bbca244a3b0477f57f2612, type: 3}
 --- !u!4 &521655678954365318 stripped
 Transform:
