@@ -6,23 +6,23 @@ using UnityEngine.VFX;
 
 public class ProgressBar : MonoBehaviour
 {
-    private float lerpTimer;
     [SerializeField] private float startProgress;
     [SerializeField] private float maxProgress, chipSpeed;
     [SerializeField] private Image frontBar, backBar;
-    [SerializeField] private VisualEffect milestoneHitEffect;
+
+    private float lerpTimer;
+
+    private float currentProgress
+    {
+        set { checkMilestone(startProgress, value); }
+    }
 
     public float progress
     {
         get { return startProgress; }
-        set {
-            checkMilestone(startProgress, value);
-            startProgress = value;
-            
-        }
+        set { startProgress = value; }
     }
 
-    private List<float> milestones = new List<float>();
     // Start is called before the first frame update
     void Start()
     {
@@ -75,33 +75,34 @@ public class ProgressBar : MonoBehaviour
     {
         if (lastValue < finalValue)
         {
-            setParticles(lastValue, milestoneHitEffect);
+            setParticles(finalValue, "MilestonePoofs");
         }
         else
         {
-
+            setParticles(finalValue, "badMilestonePoofs");
         }
     }
 
-    private void setParticles(float lastValue, VisualEffect effect)
+    private void setParticles(float finalValue, string objectName)
     {
-        if (lastValue == 0)
+        if (finalValue == 0)
         {
-
+            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0,0,-1), Quaternion.identity);
         }
-        else if (lastValue == progress)
+        else if (finalValue == maxProgress/2)
         {
-
+            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
         }
-        else if (lastValue == progress * 2)
+        else if (finalValue == maxProgress)
         {
-
+            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
         }
     }
 
     public void changeProgress(float amount)
     {
+        currentProgress = progress + amount;
         progress += amount;
-        lerpTimer = 0f;
+        lerpTimer = 0f;       
     }
 }
