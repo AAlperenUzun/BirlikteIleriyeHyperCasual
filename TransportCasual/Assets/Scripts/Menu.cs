@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,39 +14,59 @@ public class Menu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject pause;
     public List<GameObject> currentStatus;
-    public void StartGame()
+
+    private void OnEnable()
+    {
+        EventManager.StartListening(Events.StartTap, StartGame);
+        EventManager.StartListening(Events.LevelFinished, FinishGame);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(Events.StartTap, StartGame);
+        EventManager.StopListening(Events.LevelFinished, FinishGame);
+    }
+
+
+    public void StartGame(EventParam param)
     {
         currentStatus[0].SetActive(false);
         currentStatus[1].SetActive(true);
         currentStatus[2].SetActive(false);
     }
-    public void FinishGame()
+
+    public void FinishGame(EventParam param)
     {
         currentStatus[0].SetActive(false);
         currentStatus[1].SetActive(false);
         currentStatus[2].SetActive(true);
     }
+
     public void BeforeStart()
     {
         currentStatus[0].SetActive(true);
         currentStatus[1].SetActive(false);
         currentStatus[2].SetActive(false);
     }
+
     public void Settings()
     {
         settings.SetActive(true);
         gear.SetActive(false);
     }
+
     public void CloseSettings()
     {
         gear.SetActive(true);
         settings.SetActive(false);
     }
+
     public void RestartGame()
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
+
     public void PauseGame()
     {
         Time.timeScale = 0;
@@ -65,12 +86,14 @@ public class Menu : MonoBehaviour
         levelManager.NextLevel();
         BeforeStart();
     }
+
     public void CloseSound()
     {
         //sound close
         soundOff.SetActive(false);
         soundOn.SetActive(true);
     }
+
     public void OpenSound()
     {
         //sound open
