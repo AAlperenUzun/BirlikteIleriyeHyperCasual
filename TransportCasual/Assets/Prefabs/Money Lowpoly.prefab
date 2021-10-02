@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 32073f0cf69cc8147a8aae2cd5c45ce0, type: 2}
+  - {fileID: 2100000, guid: d12025f4b617bbf4a9a94242a1cad425, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -165,6 +165,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4591911120317607558, guid: 32f206d649218804db10d9ea130328e3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d12025f4b617bbf4a9a94242a1cad425, type: 2}
     - target: {fileID: 6705967189759986778, guid: 32f206d649218804db10d9ea130328e3, type: 3}
       propertyPath: m_Name
       value: Money Big
@@ -227,6 +231,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2651853763903784077, guid: f7e071cae5b532d48a86dfa26e3d1da5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d12025f4b617bbf4a9a94242a1cad425, type: 2}
     - target: {fileID: 3985138517468353761, guid: f7e071cae5b532d48a86dfa26e3d1da5, type: 3}
       propertyPath: m_Name
       value: Money
