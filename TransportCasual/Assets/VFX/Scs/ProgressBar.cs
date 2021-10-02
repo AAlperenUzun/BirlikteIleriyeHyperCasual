@@ -108,16 +108,22 @@ public class ProgressBar : MonoBehaviour
     {
         if (finalValue == 0)
         {
-            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+            var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
+            obj.transform.parent = transform;
+            obj.transform.localPosition = new Vector3(-50, 700, 0);
         }
         else if (finalValue == maxProgress / 2)
         {
-            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
-            EventManager.TriggerEvent(Events.VehicleChange, new EventParam());
+            var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
+            obj.transform.parent = transform;
+            obj.transform.localPosition = new Vector3(-50, 700, 0);
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam());          
         }
         else if (finalValue == maxProgress)
         {
-            SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+            var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
+            obj.transform.parent = transform;
+            obj.transform.localPosition = new Vector3(-50, 700, 0);
             EventManager.TriggerEvent(Events.LevelFinished, new EventParam());
         }
     }
