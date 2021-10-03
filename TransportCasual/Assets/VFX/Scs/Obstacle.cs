@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Obstacle : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Obstacle : MonoBehaviour
     {
         var eventParam = new EventParam { intParam = Amount };
         EventManager.TriggerEvent(Events.MoneyCollect, eventParam);
+        CameraControl.instance.ShakeCamera(20f, .2f);
     }
 
     private void onScreenTapped(EventParam param)
