@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.38816416, g: 0.26083165, b: 0.6510485, a: 1}
+  m_IndirectSpecularColor: {r: 0.057855427, g: 0.34378526, b: 0.907586, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -831,6 +831,9 @@ MonoBehaviour:
     size: 5
   - tag: MilestonePoofs
     prefab: {fileID: 2148438752816708689, guid: 9f848b0badec1b34da26c80804621470, type: 3}
+    size: 5
+  - tag: badMilestonePoofs
+    prefab: {fileID: 4910691057948370423, guid: 9d6918e5023503344b0412c838115d29, type: 3}
     size: 5
 --- !u!4 &371561802
 Transform:
@@ -2011,11 +2014,11 @@ PrefabInstance:
     - target: {fileID: 8602495124613973622, guid: 1e49ee32cca097a4ca531b3d04957e9d, type: 3}
       propertyPath: levels.Array.data[0]
       value: 
-      objectReference: {fileID: 4445074235223728060, guid: 6b3608a1c91805049b462236ffedf8e4, type: 3}
+      objectReference: {fileID: 9172181530467541145, guid: 562e80e37c20b8043b7d482cc6728049, type: 3}
     - target: {fileID: 8602495124613973622, guid: 1e49ee32cca097a4ca531b3d04957e9d, type: 3}
       propertyPath: levels.Array.data[1]
       value: 
-      objectReference: {fileID: 9172181530467541145, guid: 562e80e37c20b8043b7d482cc6728049, type: 3}
+      objectReference: {fileID: 4445074235223728060, guid: 6b3608a1c91805049b462236ffedf8e4, type: 3}
     - target: {fileID: 8602495124613973622, guid: 1e49ee32cca097a4ca531b3d04957e9d, type: 3}
       propertyPath: levels.Array.data[2]
       value: 
