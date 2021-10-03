@@ -59,8 +59,12 @@ public class Player : MonoBehaviour
     private void OnVehicleChange(EventParam param)
     {
         currentVehicle.gameObject.SetActive(false);
+        var oldMovement = currentVehicle.GetComponentInChildren<PlayerMovement>();
         currentVehicleIndex++;
         currentVehicle = transform.GetChild(currentVehicleIndex);
+        var newMovement = currentVehicle.GetComponentInChildren<PlayerMovement>();
+        newMovement.Started = true;
+        newMovement.transform.position = oldMovement.transform.position;
         currentVehicle.gameObject.SetActive(true);
         vehicle = currentVehicle.GetComponent<Vehicle>();
     }

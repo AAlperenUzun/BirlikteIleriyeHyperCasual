@@ -124,7 +124,7 @@ public class ProgressBar : MonoBehaviour
             var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            EventManager.TriggerEvent(Events.LevelFinished, new EventParam());
+            //EventManager.TriggerEvent(Events.LevelFinished, new EventParam());
         }
     }
 

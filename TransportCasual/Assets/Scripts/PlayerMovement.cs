@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float roadWidth;
     private float RoadMin => RoadMax * -1;
     private float RoadMax => roadWidth - 0.5f;
-    private bool started;
+    public bool Started { get; set; }
 
 
     private void Start()
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTap(EventParam param)
     {
-        started = true;
+        Started = true;
     }
 
     private void FixedUpdate()
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SwipeDetector_OnSwipe(SwipeData data)
     {
-        if (!started) return;
+        if (!Started) return;
         
         noTouchTimer = 0.1f;
         int direction = data.Direction == SwipeDirection.Left ? -1 : 1;
