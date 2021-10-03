@@ -18,8 +18,8 @@ public class LevelProgressBar : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>();
-        scenePathCreator = player.pathCreator;
-        maxDistance = GetDistance();
+        scenePathCreator = player.pathCreator;      
+        Invoke("maxDistanceBug",0f);
         SetLevelTexts(currentLevel);
     }
 
@@ -28,6 +28,12 @@ public class LevelProgressBar : MonoBehaviour
     {
         uiStartText.text = currentLevel.ToString();
         uiEndText.text = (currentLevel + 1).ToString();
+    }
+
+    private void maxDistanceBug()
+    {
+        maxDistance = GetDistance();
+        Debug.LogError(maxDistance);
     }
 
 
@@ -45,15 +51,10 @@ public class LevelProgressBar : MonoBehaviour
 
     private void Update()
     {
-        // check if the player doesn't pass the End Line
-
-        if (GetDistance()>=1f)
-        {
-            float newDistance = GetDistance();
-            float progressValue = Mathf.InverseLerp(maxDistance, 0f, newDistance);
-
-            UpdateProgressFill(progressValue);
-        }
+        float newDistance = GetDistance();
+        Debug.LogError(newDistance);
+        float progressValue = Mathf.InverseLerp(maxDistance, 0f, newDistance);
+        UpdateProgressFill(progressValue);
     }
 
 }
