@@ -8,6 +8,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float swipeMoveSpeed;
 
+    [SerializeField]
+    private float carTiltSpeed;
+
+    [SerializeField]
+    private bool isPlane;
+
     private float noTouchTimer;
     private Rigidbody rb;
 
@@ -56,13 +62,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction > 0 && (RoadMax - transform.localPosition.y) < roadEdgeMargin) return;
         if (direction < 0 && (transform.localPosition.y - RoadMin) < roadEdgeMargin) return;
-        Debug.Log("move");
-        transform.Translate(0, direction * data.Distance / 10f * swipeMoveSpeed * Time.deltaTime, 0);
+        //transform.Translate(0, direction * data.Distance / 10f * swipeMoveSpeed * Time.deltaTime, 0);
 
-        /*var locVel = transform.InverseTransformDirection(rb.velocity);
+        var locVel = transform.InverseTransformDirection(rb.velocity);
         locVel.y = direction * data.Distance / 10f * swipeMoveSpeed;
+
+        TiltCar(locVel.y);
         rb.velocity = transform.TransformDirection(locVel);
-        */
+        
     }
 
     private void StopIfNoTouch()
@@ -73,10 +80,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            /*var locVel = transform.InverseTransformDirection(rb.velocity);
+            var locVel = transform.InverseTransformDirection(rb.velocity);
             locVel.y = 0f;
+            TiltCar(locVel.y);
             rb.velocity = transform.TransformDirection(locVel);
-            */
+            
         }
+    }
+
+    private void TiltCar(float tiltAmount)
+    {
+        Quaternion target = !isPlane ? Quaternion.Euler(-tiltAmount, 0, 0) : Quaternion.Euler(0, 0, -tiltAmount);
+
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * carTiltSpeed);
     }
 }

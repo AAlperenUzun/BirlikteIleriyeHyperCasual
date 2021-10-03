@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2823102844826324808}
   - component: {fileID: 6926537195170875671}
   m_Layer: 3
-  m_Name: Car Medium 1
+  m_Name: Car 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeMoveSpeed: 0.3
+  carTiltSpeed: 5
   roadEdgeMargin: 0.5
 --- !u!65 &6458243361808562923
 BoxCollider:
@@ -147,12 +148,12 @@ Rigidbody:
   m_GameObject: {fileID: 8857267554167276517}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 5
+  m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!1001 &421097568894901138
 PrefabInstance:
