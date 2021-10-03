@@ -13,13 +13,21 @@ public class Menu : MonoBehaviour
     public GameObject soundOff;
     public GameObject pauseMenu;
     public GameObject pause;
+    public AudioSource audioSource;
+
     public List<GameObject> currentStatus;
+
+    private void Start()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
 
     private void OnEnable()
     {
         EventManager.StartListening(Events.StartTap, StartGame);
         EventManager.StartListening(Events.LevelLost, LostGame);
         EventManager.StartListening(Events.LevelWon, WonGame);
+        EventManager.StartListening(Events.MoneyCollect, Coin);
     }
 
     private void OnDisable()
@@ -27,6 +35,13 @@ public class Menu : MonoBehaviour
         EventManager.StopListening(Events.StartTap, StartGame);
         EventManager.StopListening(Events.LevelLost, LostGame);
         EventManager.StopListening(Events.LevelWon, WonGame);
+        EventManager.StopListening(Events.MoneyCollect, Coin);
+    }
+
+    private void Coin(EventParam param)
+    {
+        if (param.intParam > 0)
+            audioSource.PlayOneShot(audioSource.clip, 1f);
     }
 
     public void StartGame(EventParam param)
@@ -44,7 +59,7 @@ public class Menu : MonoBehaviour
         currentStatus[2].SetActive(true);
         currentStatus[3].SetActive(false);
     }
-    
+
     public void WonGame(EventParam param)
     {
         currentStatus[0].SetActive(false);

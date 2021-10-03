@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using PathCreation;
@@ -29,6 +30,24 @@ public class LevelProgressBar : MonoBehaviour
         scenePathCreator = player.pathCreator;
         Invoke("maxDistanceBug", 0f);
         SetLevelTexts(currentLevel);
+    }
+
+    private void Init(EventParam param)
+    {
+        player = FindObjectOfType<Player>();
+        scenePathCreator = player.pathCreator;
+        Invoke("maxDistanceBug", 0f);
+        SetLevelTexts(currentLevel);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening(Events.StartTap, Init);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(Events.StartTap, Init);
     }
 
 

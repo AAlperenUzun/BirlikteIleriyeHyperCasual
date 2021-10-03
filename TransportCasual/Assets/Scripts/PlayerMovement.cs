@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
         EventManager.StartListening(Events.StartTap, OnTap);
         EventManager.StartListening(Events.VehicleChange, OnVehicleChange);
+        EventManager.StartListening(Events.LevelFinished, OnFinish);
     }
 
     private void OnDisable()
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         SwipeDetector.OnSwipe -= SwipeDetector_OnSwipe;
         EventManager.StopListening(Events.StartTap, OnTap);
         EventManager.StopListening(Events.VehicleChange, OnVehicleChange);
+        EventManager.StopListening(Events.LevelFinished, OnFinish);
     }
     
     private void OnVehicleChange(EventParam param)
@@ -53,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
     private void OnTap(EventParam param)
     {
         Started = true;
+    }
+    
+    private void OnFinish(EventParam param)
+    {
+        Started = false;
     }
 
     private void FixedUpdate()

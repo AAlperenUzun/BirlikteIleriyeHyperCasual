@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private float distanceTraveled;
     private bool started;
 
+    public GameObject objectToActivate;
+
     public RoadMeshCreator RoadMeshCreator { get; private set; }
 
     private void Awake()
@@ -35,6 +37,11 @@ public class Player : MonoBehaviour
         transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
     }
+    
+    private float GetDistance()
+    {
+        return pathCreator.path.length - pathCreator.path.GetClosestDistanceAlongPath(transform.position);
+    }
 
     private void FixedUpdate()
     {
@@ -42,18 +49,34 @@ public class Player : MonoBehaviour
         distanceTraveled += vehicle.speed * Time.deltaTime;
         transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
+
+        if (GetDistance() < .1f)
+        {
+            EventManager.TriggerEvent(Events.LevelFinished, new EventParam());
+            started = false;
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
     {
         EventManager.StartListening(Events.VehicleChange, OnVehicleChange);
         EventManager.StartListening(Events.StartTap, OnTap);
+        EventManager.StartListening(Events.LevelWon, ActivateObject);
     }
 
     private void OnDisable()
     {
         EventManager.StopListening(Events.VehicleChange, OnVehicleChange);
         EventManager.StopListening(Events.StartTap, OnTap);
+        EventManager.StopListening(Events.LevelWon, ActivateObject);
+
+    }
+
+    private void ActivateObject(EventParam param)
+    {
+        objectToActivate.SetActive(true);
+        SusPooler.instance.SpawnFromPool("SmokePoofs", transform.position, Quaternion.identity);
     }
 
     private void OnVehicleChange(EventParam param)
