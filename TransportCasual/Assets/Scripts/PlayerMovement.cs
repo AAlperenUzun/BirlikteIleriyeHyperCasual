@@ -35,12 +35,19 @@ public class PlayerMovement : MonoBehaviour
     {
         SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
         EventManager.StartListening(Events.StartTap, OnTap);
+        EventManager.StartListening(Events.VehicleChange, OnVehicleChange);
     }
 
     private void OnDisable()
     {
         SwipeDetector.OnSwipe -= SwipeDetector_OnSwipe;
         EventManager.StopListening(Events.StartTap, OnTap);
+        EventManager.StopListening(Events.VehicleChange, OnVehicleChange);
+    }
+    
+    private void OnVehicleChange(EventParam param)
+    {
+        SusPooler.instance.SpawnFromPool("SmokePoofs", transform.position, Quaternion.identity);
     }
 
     private void OnTap(EventParam param)

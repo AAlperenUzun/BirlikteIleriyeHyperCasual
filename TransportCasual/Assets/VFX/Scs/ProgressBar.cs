@@ -32,16 +32,30 @@ public class ProgressBar : MonoBehaviour
     private void OnEnable()
     {
         EventManager.StartListening(Events.MoneyCollect, OnCollect);
+        EventManager.StartListening(Events.LevelFinished, OnFinish);
     }
 
     private void OnDisable()
     {
         EventManager.StopListening(Events.MoneyCollect, OnCollect);
+        EventManager.StopListening(Events.LevelFinished, OnFinish);
     }
 
     private void OnCollect(EventParam param)
     {
         changeProgress(param.intParam);
+    }
+    
+    private void OnFinish(EventParam param)
+    {
+        if (startProgress < maxProgress)
+        {
+            EventManager.TriggerEvent(Events.LevelLost, new EventParam());
+        }
+        else
+        {
+            EventManager.TriggerEvent(Events.LevelWon, new EventParam());
+        }
     }
 
     // Start is called before the first frame update
@@ -55,15 +69,6 @@ public class ProgressBar : MonoBehaviour
     {
         progress = Mathf.Clamp(progress, 0, maxProgress);
         UpdateHealthUI();
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            changeProgress(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            changeProgress(-1);
-        }
     }
 
     private void UpdateHealthUI()
@@ -94,13 +99,32 @@ public class ProgressBar : MonoBehaviour
 
     private void checkMilestone(float lastValue, float finalValue)
     {
+        
         if (lastValue < finalValue)
         {
             setParticles(finalValue, "MilestonePoofs");
         }
-        else
+        else if (lastValue > finalValue)
         {
-            setParticles(finalValue, "badMilestonePoofs");
+            CheckDowngradeCar(lastValue, finalValue);
+        }
+    }
+
+    private void CheckDowngradeCar(float lastValue, float finalValue)
+    {
+        if (lastValue > maxProgress / 2 && finalValue < maxProgress / 2)
+        {
+            var obj = SusPooler.instance.SpawnFromPool("badMilestonePoofs", frontBar.transform.position, Quaternion.identity);
+            obj.transform.parent = transform;
+            obj.transform.localPosition = new Vector3(-50, 700, 0);
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = true});
+        }
+        else if (lastValue == maxProgress)
+        {
+            var obj = SusPooler.instance.SpawnFromPool("badMilestonePoofs", frontBar.transform.position, Quaternion.identity);
+            obj.transform.parent = transform;
+            obj.transform.localPosition = new Vector3(-50, 700, 0);
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = true});
         }
     }
 
@@ -117,21 +141,21 @@ public class ProgressBar : MonoBehaviour
             var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            EventManager.TriggerEvent(Events.VehicleChange, new EventParam());          
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = false});
         }
         else if (finalValue == maxProgress)
         {
             var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            //EventManager.TriggerEvent(Events.LevelFinished, new EventParam());
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = false});
         }
     }
 
     public void changeProgress(float amount)
     {
-        currentProgress = progress + amount;
-        progress += amount;
+        currentProgress = Mathf.Clamp(progress + amount, 0, maxProgress);
+        progress = Mathf.Clamp(progress + amount, 0, maxProgress);
         lerpTimer = 0f;
     }
 }

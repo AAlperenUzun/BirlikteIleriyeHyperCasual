@@ -5,21 +5,29 @@ using TMPro;
 
 public class LevelProgressBar : MonoBehaviour
 {
+    [SerializeField]
+    private Image uiFillImage;
 
-    [SerializeField] private Image uiFillImage;
-    [SerializeField] private TextMeshProUGUI uiStartText;
-    [SerializeField] private TextMeshProUGUI uiEndText;
-    [SerializeField] private int currentLevel;
+    [SerializeField]
+    private TextMeshProUGUI uiStartText;
 
-     private Player player;
-     private PathCreator scenePathCreator;
-     private float maxDistance;
+    [SerializeField]
+    private TextMeshProUGUI uiEndText;
+
+    [SerializeField]
+    private int currentLevel;
+
+    private Player player;
+    private PathCreator scenePathCreator;
+    private float maxDistance;
+
+    private float newDistance, progressValue;
 
     private void Start()
     {
         player = FindObjectOfType<Player>();
-        scenePathCreator = player.pathCreator;      
-        Invoke("maxDistanceBug",0f);
+        scenePathCreator = player.pathCreator;
+        Invoke("maxDistanceBug", 0f);
         SetLevelTexts(currentLevel);
     }
 
@@ -33,7 +41,6 @@ public class LevelProgressBar : MonoBehaviour
     private void maxDistanceBug()
     {
         maxDistance = GetDistance();
-        Debug.LogError(maxDistance);
     }
 
 
@@ -51,10 +58,8 @@ public class LevelProgressBar : MonoBehaviour
 
     private void Update()
     {
-        float newDistance = GetDistance();
-        Debug.LogError(newDistance);
-        float progressValue = Mathf.InverseLerp(maxDistance, 0f, newDistance);
+        newDistance = GetDistance();
+        progressValue = Mathf.InverseLerp(maxDistance, 0f, newDistance);
         UpdateProgressFill(progressValue);
     }
-
 }

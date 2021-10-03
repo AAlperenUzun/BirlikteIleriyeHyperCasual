@@ -8,7 +8,9 @@ public enum Events
     StartTap,
     MoneyCollect,
     VehicleChange,
-    LevelFinished
+    LevelFinished,
+    LevelWon,
+    LevelLost
 }
 
 public class EventManager : MonoBehaviour
@@ -83,5 +85,5 @@ public struct EventParam
     public string param1;
     public int intParam;
     public float param3;
-    public bool param4;
+    public bool isDowngrade;
 }

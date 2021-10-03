@@ -60,7 +60,18 @@ public class Player : MonoBehaviour
     {
         currentVehicle.gameObject.SetActive(false);
         var oldMovement = currentVehicle.GetComponentInChildren<PlayerMovement>();
-        currentVehicleIndex++;
+
+        if (param.isDowngrade)
+        {
+            currentVehicleIndex--;
+            currentVehicleIndex = Mathf.Clamp(currentVehicleIndex, 0, 2);
+        }
+        else
+        {
+            currentVehicleIndex++;
+            currentVehicleIndex = Mathf.Clamp(currentVehicleIndex, 0, 2);
+        }
+
         currentVehicle = transform.GetChild(currentVehicleIndex);
         var newMovement = currentVehicle.GetComponentInChildren<PlayerMovement>();
         newMovement.Started = true;

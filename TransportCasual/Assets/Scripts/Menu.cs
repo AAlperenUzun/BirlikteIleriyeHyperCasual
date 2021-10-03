@@ -18,13 +18,15 @@ public class Menu : MonoBehaviour
     private void OnEnable()
     {
         EventManager.StartListening(Events.StartTap, StartGame);
-        EventManager.StartListening(Events.LevelFinished, FinishGame);
+        EventManager.StartListening(Events.LevelLost, LostGame);
+        EventManager.StartListening(Events.LevelWon, WonGame);
     }
 
     private void OnDisable()
     {
         EventManager.StopListening(Events.StartTap, StartGame);
-        EventManager.StopListening(Events.LevelFinished, FinishGame);
+        EventManager.StopListening(Events.LevelLost, LostGame);
+        EventManager.StopListening(Events.LevelWon, WonGame);
     }
 
     public void StartGame(EventParam param)
@@ -32,13 +34,23 @@ public class Menu : MonoBehaviour
         currentStatus[0].SetActive(false);
         currentStatus[1].SetActive(true);
         currentStatus[2].SetActive(false);
+        currentStatus[3].SetActive(false);
     }
 
-    public void FinishGame(EventParam param)
+    public void LostGame(EventParam param)
     {
         currentStatus[0].SetActive(false);
         currentStatus[1].SetActive(false);
         currentStatus[2].SetActive(true);
+        currentStatus[3].SetActive(false);
+    }
+    
+    public void WonGame(EventParam param)
+    {
+        currentStatus[0].SetActive(false);
+        currentStatus[1].SetActive(false);
+        currentStatus[2].SetActive(false);
+        currentStatus[3].SetActive(true);
     }
 
     public void BeforeStart()
@@ -46,6 +58,7 @@ public class Menu : MonoBehaviour
         currentStatus[0].SetActive(true);
         currentStatus[1].SetActive(false);
         currentStatus[2].SetActive(false);
+        currentStatus[3].SetActive(false);
     }
 
     public void Settings()
