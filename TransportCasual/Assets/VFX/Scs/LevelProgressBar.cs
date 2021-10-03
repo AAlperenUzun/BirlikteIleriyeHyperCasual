@@ -9,6 +9,7 @@ public class LevelProgressBar : MonoBehaviour
     [SerializeField] private Image uiFillImage;
     [SerializeField] private TextMeshProUGUI uiStartText;
     [SerializeField] private TextMeshProUGUI uiEndText;
+    [SerializeField] private int currentLevel;
 
      private Player player;
      private PathCreator scenePathCreator;
@@ -18,8 +19,8 @@ public class LevelProgressBar : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         scenePathCreator = player.pathCreator;
-
         maxDistance = GetDistance();
+        SetLevelTexts(currentLevel);
     }
 
 
