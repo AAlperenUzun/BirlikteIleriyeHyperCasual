@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2823102844826324808
 Transform:
   m_ObjectHideFlags: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeMoveSpeed: 0.3
+  roadEdgeMargin: 0.5
 --- !u!65 &6458243361808562923
 BoxCollider:
   m_ObjectHideFlags: 0
