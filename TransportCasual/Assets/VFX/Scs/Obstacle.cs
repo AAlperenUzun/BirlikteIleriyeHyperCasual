@@ -11,6 +11,7 @@ public class Obstacle : MonoBehaviour
     public int moveSpeed;
 
     private bool started;
+    private bool collided;
     private Rigidbody rb;
 
     private void Start()
@@ -36,6 +37,8 @@ public class Obstacle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (collided) return;
+        collided = true;
         onCollision(other);
     }
 
