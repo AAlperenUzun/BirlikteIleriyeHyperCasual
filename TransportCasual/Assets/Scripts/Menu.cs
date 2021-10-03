@@ -27,7 +27,6 @@ public class Menu : MonoBehaviour
         EventManager.StopListening(Events.LevelFinished, FinishGame);
     }
 
-
     public void StartGame(EventParam param)
     {
         currentStatus[0].SetActive(false);
@@ -65,6 +64,7 @@ public class Menu : MonoBehaviour
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        Time.timeScale = 1;
     }
 
     public void PauseGame()

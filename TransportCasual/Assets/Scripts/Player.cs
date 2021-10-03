@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private Vehicle vehicle;
 
     private float distanceTraveled;
+    private bool started;
 
     public RoadMeshCreator RoadMeshCreator { get; private set; }
 
@@ -30,10 +31,14 @@ public class Player : MonoBehaviour
     private void Start()
     {
         RoadMeshCreator.TriggerUpdate();
+        distanceTraveled += vehicle.speed * Time.deltaTime * 10;
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
+        transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
     }
 
     private void FixedUpdate()
     {
+        if (!started) return;
         distanceTraveled += vehicle.speed * Time.deltaTime;
         transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
@@ -42,11 +47,13 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         EventManager.StartListening(Events.VehicleChange, OnVehicleChange);
+        EventManager.StartListening(Events.StartTap, OnTap);
     }
 
     private void OnDisable()
     {
         EventManager.StopListening(Events.VehicleChange, OnVehicleChange);
+        EventManager.StopListening(Events.StartTap, OnTap);
     }
 
     private void OnVehicleChange(EventParam param)
@@ -56,5 +63,10 @@ public class Player : MonoBehaviour
         currentVehicle = transform.GetChild(currentVehicleIndex);
         currentVehicle.gameObject.SetActive(true);
         vehicle = currentVehicle.GetComponent<Vehicle>();
+    }
+
+    private void OnTap(EventParam param)
+    {
+        started = true;
     }
 }
