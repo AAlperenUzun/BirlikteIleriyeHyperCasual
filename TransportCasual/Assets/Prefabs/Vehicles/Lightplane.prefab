@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc7ba9c81b277346af84bfa6f462ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 5
   maxSwerve: 5
 --- !u!1 &7424533480580189327
 GameObject:
@@ -138,7 +138,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.84794, y: 1.3921995, z: 2.029459}
+  m_Size: {x: 3.84794, y: 4.840492, z: 2.029459}
   m_Center: {x: -0.04048395, y: 0.10543549, z: -0.036884785}
 --- !u!54 &6207034927809362818
 Rigidbody:

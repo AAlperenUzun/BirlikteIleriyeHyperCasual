@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &1177368034003944199
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3373708427065900002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.940465, y: 1.2999722, z: 5.1243987}
+  m_Center: {x: 0.4414186, y: 0.6470445, z: 0}
 --- !u!1 &4201354678551331408
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,7 +29,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2823102844826324808
 Transform:
   m_ObjectHideFlags: 0
@@ -44,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc7ba9c81b277346af84bfa6f462ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 50
   maxSwerve: 5
 --- !u!1 &7424533480580189327
 GameObject:
@@ -211,8 +224,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EaglePlane
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5588413167485372880, guid: f8c3b65648d88284e8a74f107c8cbb56, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f8c3b65648d88284e8a74f107c8cbb56, type: 3}
+--- !u!1 &3373708427065900002 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5588413167485372887, guid: f8c3b65648d88284e8a74f107c8cbb56, type: 3}
+  m_PrefabInstance: {fileID: 7160681464363086389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2709479620628013400 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5099720224457134957, guid: f8c3b65648d88284e8a74f107c8cbb56, type: 3}
