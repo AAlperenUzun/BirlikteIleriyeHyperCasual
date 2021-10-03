@@ -12,17 +12,14 @@ public class LevelProgressBar : MonoBehaviour
 
      private Player player;
      private PathCreator scenePathCreator;
-
-    // "fullDistance" stores the default distance between the player & end line.
-    [Header("BÝL BAKALIM YOL NE KADAR UZUN")]
-    [SerializeField] private float maxDistance;
+     private float maxDistance;
 
     private void Start()
     {
         player = FindObjectOfType<Player>();
         scenePathCreator = player.pathCreator;
 
-        maxDistance = 100f;
+        maxDistance = GetDistance();
     }
 
 
@@ -35,7 +32,7 @@ public class LevelProgressBar : MonoBehaviour
 
     private float GetDistance()
     {
-        return scenePathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
+        return scenePathCreator.path.length - scenePathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
     }
 
 
@@ -48,12 +45,13 @@ public class LevelProgressBar : MonoBehaviour
     private void Update()
     {
         // check if the player doesn't pass the End Line
+
         if (GetDistance()>=1f)
         {
             float newDistance = GetDistance();
             float progressValue = Mathf.InverseLerp(maxDistance, 0f, newDistance);
 
-            UpdateProgressFill(1-progressValue);
+            UpdateProgressFill(progressValue);
         }
     }
 
