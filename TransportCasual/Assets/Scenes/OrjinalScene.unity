@@ -18,8 +18,8 @@ RenderSettings:
   m_FogColor: {r: 0.26633143, g: 0.6588045, b: 0.8962264, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.04
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 70
+  m_LinearFogStart: 50
+  m_LinearFogEnd: 100
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.057860248, g: 0.34378248, b: 0.90758455, a: 1}
+  m_IndirectSpecularColor: {r: 0.38816416, g: 0.26083165, b: 0.6510485, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3561,11 +3561,11 @@ PrefabInstance:
     - target: {fileID: 8602495124613973622, guid: 1e49ee32cca097a4ca531b3d04957e9d, type: 3}
       propertyPath: levels.Array.data[0]
       value: 
-      objectReference: {fileID: 9172181530467541145, guid: 562e80e37c20b8043b7d482cc6728049, type: 3}
+      objectReference: {fileID: 4445074235223728060, guid: 6b3608a1c91805049b462236ffedf8e4, type: 3}
     - target: {fileID: 8602495124613973622, guid: 1e49ee32cca097a4ca531b3d04957e9d, type: 3}
       propertyPath: levels.Array.data[1]
       value: 
-      objectReference: {fileID: 4445074235223728060, guid: 6b3608a1c91805049b462236ffedf8e4, type: 3}
+      objectReference: {fileID: 9172181530467541145, guid: 562e80e37c20b8043b7d482cc6728049, type: 3}
     - target: {fileID: 8602495124613973622, guid: 1e49ee32cca097a4ca531b3d04957e9d, type: 3}
       propertyPath: levels.Array.data[2]
       value: 
@@ -4672,7 +4672,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041127521}
-  m_LocalRotation: {x: 0.33490917, y: -1e-45, z: 0, w: 0.94225043}
+  m_LocalRotation: {x: 0.17317437, y: -0.000000018946663, z: 0.00000000333141, w: 0.9848912}
   m_LocalPosition: {x: 0, y: 6.55, z: -8.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
