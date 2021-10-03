@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2823102844826324808}
   - component: {fileID: 6926537195170875671}
   m_Layer: 3
-  m_Name: Bike
+  m_Name: Motorcycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4689913184640192000}
-  - component: {fileID: 5938852226285665172}
   - component: {fileID: 36110182432745006}
   - component: {fileID: 6458243361808562923}
   - component: {fileID: 6207034927809362818}
@@ -144,18 +143,6 @@ Transform:
   m_Father: {fileID: 2823102844826324808}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5938852226285665172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8857267554167276517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 718d420a4b0db9742aa39532612ebaa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &36110182432745006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dcc1351c9a0f7044aaf20f25c9f2384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadEdgeMargin: 0.5
+  swipeMoveSpeed: 0.3
 --- !u!65 &6458243361808562923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -194,9 +181,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1001 &3357888104053254744
 PrefabInstance:

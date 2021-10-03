@@ -119,7 +119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4107970294339186930}
-  m_LocalRotation: {x: 0.33490917, y: -3e-45, z: 1e-45, w: 0.94225043}
+  m_LocalRotation: {x: 0.33490917, y: 1e-45, z: -1e-45, w: 0.94225043}
   m_LocalPosition: {x: 0, y: 6.55, z: -8.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1127,10 +1127,6 @@ PrefabInstance:
     - target: {fileID: 4201354678551331408, guid: 565f12e848b7ac64597d80463a7a1767, type: 3}
       propertyPath: m_Name
       value: Test Vehicle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6926537195170875671, guid: 565f12e848b7ac64597d80463a7a1767, type: 3}
-      propertyPath: maxSwerve
-      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 565f12e848b7ac64597d80463a7a1767, type: 3}

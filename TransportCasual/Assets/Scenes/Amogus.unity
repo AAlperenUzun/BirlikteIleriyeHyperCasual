@@ -770,10 +770,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1464560082}
     m_Modifications:
-    - target: {fileID: 1109134495, guid: b8b1c7ef05d31fc49b88a472ee26f3e1, type: 3}
-      propertyPath: maxDistance
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4751042592263740869, guid: b8b1c7ef05d31fc49b88a472ee26f3e1, type: 3}
       propertyPath: m_Name
       value: LevelProgressBar

@@ -6,13 +6,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float swipeMoveSpeed;
-    private Rigidbody rb;
     private float noTouchTimer;
+    private Rigidbody rb;
+
+    public float roadEdgeMargin = .1f;
+
+    private float roadWidth;
+    private float RoadMin => RoadMax * -1;
+    private float RoadMax => roadWidth - 0.5f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
+
     private void OnEnable()
     {
         SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
@@ -30,11 +37,20 @@ public class PlayerMovement : MonoBehaviour
     private void SwipeDetector_OnSwipe(SwipeData data)
     {
         noTouchTimer = 0.1f;
-        int direction = data.Direction == SwipeDirection.Left ? 1 : -1;
+        int direction = data.Direction == SwipeDirection.Left ? -1 : 1;
 
-        Vector3 velocity = rb.velocity;
-        velocity.x = direction * data.Distance / 10f * swipeMoveSpeed;
-        rb.velocity = velocity;
+        /*if (direction > 0 && (RoadMax - transform.localPosition.y) < roadEdgeMargin) return;
+        if (direction < 0 && (transform.localPosition.y - RoadMin) < roadEdgeMargin) return;
+        */
+
+        transform.Translate(0, direction * data.Distance / 10f * swipeMoveSpeed * Time.deltaTime, 0);
+        
+
+         /*var locVel = transform.InverseTransformDirection(rb.velocity);
+         locVel.y = direction * data.Distance / 10f * swipeMoveSpeed;
+         rb.velocity = transform.TransformDirection(locVel);
+         */
+        
     }
 
     private void StopIfNoTouch()
@@ -45,9 +61,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Vector3 velocity = rb.velocity;
-            velocity.x = 0f;
-            rb.velocity = velocity;
+            /*var locVel = transform.InverseTransformDirection(rb.velocity);
+            locVel.y = 0f;
+            rb.velocity = transform.TransformDirection(locVel);
+            */
         }
     }
 

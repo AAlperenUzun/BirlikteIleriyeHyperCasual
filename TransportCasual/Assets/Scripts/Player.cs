@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
         RoadMeshCreator.TriggerUpdate();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         distanceTraveled += vehicle.speed * Time.deltaTime;
         transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
