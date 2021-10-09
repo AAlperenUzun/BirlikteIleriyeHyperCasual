@@ -9,15 +9,16 @@ public class LevelManager : MonoBehaviour
 {
     public List<Transform> levels;
     private Transform currentLevel;
-    [NonSerialized]public int currentLevelNumber;
+    [NonSerialized] public int currentLevelNumber;
     PlayerData loadData;
     private void Awake()
     {
         currentLevelNumber = 0;
         loadData = LoadPlayer();
-        if (loadData!=null)
+        if (loadData != null)
         {
             currentLevelNumber = loadData.currentLevelNumber;
+            currentLevelNumber %= levels.Count;
         }
         GetCurrentLevel();
         //NextLevel();
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour
             Destroy(currentLevel.gameObject);
         }
         currentLevelNumber += 1;
+        currentLevelNumber %= levels.Count;
         SaveLevel();
         GetCurrentLevel();
     }
@@ -60,7 +62,7 @@ public class LevelManager : MonoBehaviour
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
 
             stream.Close();
-            
+
             return data;
         }
         else

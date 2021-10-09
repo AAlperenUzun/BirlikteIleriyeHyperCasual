@@ -22,7 +22,7 @@ public class StartOnClick : MonoBehaviour, IPointerDownHandler
     {
         started = false;
     }
-    
+
     private void ResetTap2()
     {
         started = false;
@@ -36,6 +36,7 @@ public class StartOnClick : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
+
     }
 
 

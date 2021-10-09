@@ -29,8 +29,28 @@ public class SusPooler : MonoBehaviour
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
+    private void OnEnable()
+    {
+        EventManager.StartListening(Events.StartTap, InitPool);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(Events.StartTap, InitPool);
+    }
+
     private void Start()
     {
+        InitPool();
+    }
+
+    private void InitPool(EventParam param = new EventParam())
+    {
+        poolDictionary.Clear();
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
         foreach (Pool pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
@@ -45,7 +65,6 @@ public class SusPooler : MonoBehaviour
 
             poolDictionary.Add(pool.tag, objectPool);
         }
-
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)

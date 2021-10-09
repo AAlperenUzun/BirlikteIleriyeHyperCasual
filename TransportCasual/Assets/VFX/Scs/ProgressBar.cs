@@ -45,12 +45,12 @@ public class ProgressBar : MonoBehaviour
     {
         changeProgress(param.intParam);
     }
-    
+
     private void OnFinish(EventParam param)
     {
         if (startProgress < maxProgress)
         {
-            EventManager.TriggerEvent(Events.LevelLost, new EventParam());
+            EventManager.TriggerEvent(Events.LevelWon, new EventParam()); //lost
         }
         else
         {
@@ -99,7 +99,7 @@ public class ProgressBar : MonoBehaviour
 
     private void checkMilestone(float lastValue, float finalValue)
     {
-        
+
         if (lastValue < finalValue)
         {
             setParticles(finalValue, "MilestonePoofs");
@@ -117,14 +117,14 @@ public class ProgressBar : MonoBehaviour
             var obj = SusPooler.instance.SpawnFromPool("badMilestonePoofs", frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = true});
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam { isDowngrade = true });
         }
         else if (lastValue == maxProgress)
         {
             var obj = SusPooler.instance.SpawnFromPool("badMilestonePoofs", frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = true});
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam { isDowngrade = true });
         }
     }
 
@@ -141,14 +141,14 @@ public class ProgressBar : MonoBehaviour
             var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = false});
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam { isDowngrade = false });
         }
         else if (finalValue == maxProgress)
         {
             var obj = SusPooler.instance.SpawnFromPool(objectName, frontBar.transform.position, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.localPosition = new Vector3(-50, 700, 0);
-            EventManager.TriggerEvent(Events.VehicleChange, new EventParam {isDowngrade = false});
+            EventManager.TriggerEvent(Events.VehicleChange, new EventParam { isDowngrade = false });
         }
     }
 

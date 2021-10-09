@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class Obstacle : MonoBehaviour
 {
-    public int Amount;    
+    public int Amount;
     [Header("Set if moving object")]
     public bool movingObstacle;
     public int moveSpeed;
@@ -14,10 +14,19 @@ public class Obstacle : MonoBehaviour
     private bool collided;
     private Rigidbody rb;
 
+    private void OnEnable()
+    {
+        EventManager.StartListening(Events.StartTap, onScreenTapped);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening(Events.StartTap, onScreenTapped);
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        EventManager.StartListening(Events.StartTap, onScreenTapped);
     }
     private void onCollision(Collider other)
     {
@@ -26,8 +35,8 @@ public class Obstacle : MonoBehaviour
 
         CameraControl.instance.ShakeCamera(20f, .2f);
         rb.useGravity = true;
-        rb.AddExplosionForce(500f, ((other.transform.position + transform.position) / 2) + new Vector3(0,-2f,0), 20f);
-        
+        rb.AddExplosionForce(500f, ((other.transform.position + transform.position) / 2) + new Vector3(0, -2f, 0), 20f);
+
     }
 
     private void onScreenTapped(EventParam param)

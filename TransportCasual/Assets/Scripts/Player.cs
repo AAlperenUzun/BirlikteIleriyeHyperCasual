@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
         transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
     }
-    
+
     private float GetDistance()
     {
         return pathCreator.path.length - pathCreator.path.GetClosestDistanceAlongPath(transform.position);
@@ -75,7 +75,10 @@ public class Player : MonoBehaviour
 
     private void ActivateObject(EventParam param)
     {
-        objectToActivate.SetActive(true);
+        if (objectToActivate != null)
+        {
+            objectToActivate.SetActive(true);
+        }
         SusPooler.instance.SpawnFromPool("SmokePoofs", transform.position, Quaternion.identity);
     }
 

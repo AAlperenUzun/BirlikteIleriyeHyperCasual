@@ -15,7 +15,6 @@ public enum Events
 
 public class EventManager : MonoBehaviour
 {
-
     private Dictionary<Events, Action<EventParam>> eventDictionary;
 
     private static EventManager eventManager;
@@ -37,8 +36,16 @@ public class EventManager : MonoBehaviour
                     eventManager.Init();
                 }
             }
+
             return eventManager;
         }
+
+        set { }
+    }
+
+    private void OnDisable()
+    {
+        instance = null;
     }
 
     private void Init()
@@ -72,6 +79,7 @@ public class EventManager : MonoBehaviour
     public static void TriggerEvent(Events eventName, EventParam eventParam)
     {
         Action<EventParam> thisEvent = null;
+
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.Invoke(eventParam);
