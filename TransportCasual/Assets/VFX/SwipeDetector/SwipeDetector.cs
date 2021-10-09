@@ -90,7 +90,7 @@ public class SwipeDetector : MonoBehaviour
             Direction = direction,
             StartPosition = fingerDownPosition,
             EndPosition = fingerUpPosition,
-            Distance = Vector3.Distance(fingerDownPosition, fingerUpPosition)
+            DistanceX = Mathf.Abs(fingerDownPosition.x - fingerUpPosition.x)
         };
         OnSwipe(swipeData);
     }
@@ -100,7 +100,7 @@ public struct SwipeData
 {
     public Vector2 StartPosition;
     public Vector2 EndPosition;
-    public float Distance;
+    public float DistanceX;
     public SwipeDirection Direction;
 }
 

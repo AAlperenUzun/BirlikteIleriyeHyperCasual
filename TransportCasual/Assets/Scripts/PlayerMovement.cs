@@ -76,10 +76,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction > 0 && (RoadMax - transform.localPosition.y) < roadEdgeMargin) return;
         if (direction < 0 && (transform.localPosition.y - RoadMin) < roadEdgeMargin) return;
-        //transform.Translate(0, direction * data.Distance / 10f * swipeMoveSpeed * Time.deltaTime, 0);
 
         var locVel = transform.InverseTransformDirection(rb.velocity);
-        locVel.y = direction * data.Distance / 10f * swipeMoveSpeed;
+        locVel.y = direction * data.DistanceX / (Screen.width / 150) * swipeMoveSpeed;
 
         TiltCar(locVel.y);
         rb.velocity = transform.TransformDirection(locVel);
