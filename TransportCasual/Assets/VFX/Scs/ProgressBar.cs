@@ -50,7 +50,7 @@ public class ProgressBar : MonoBehaviour
     {
         if (startProgress < maxProgress)
         {
-            EventManager.TriggerEvent(Events.LevelWon, new EventParam()); //lost
+            EventManager.TriggerEvent(Events.LevelLost, new EventParam()); //lost
         }
         else
         {
