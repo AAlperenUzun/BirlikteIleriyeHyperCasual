@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc7ba9c81b277346af84bfa6f462ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 15
   maxSwerve: 5
 --- !u!1 &7424533480580189327
 GameObject:
