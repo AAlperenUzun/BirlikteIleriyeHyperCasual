@@ -34,8 +34,8 @@ public class Player : MonoBehaviour
     {
         RoadMeshCreator.TriggerUpdate();
         distanceTraveled += vehicle.speed * Time.deltaTime * 10;
-        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
-        transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
+        //transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
+        //transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
     }
 
     private float GetDistance()
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     {
         if (!started) return;
         distanceTraveled += vehicle.speed * Time.deltaTime;
-        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
+        transform.localPosition = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
 
         if (GetDistance() < .1f)

@@ -1,138 +1,135 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 
-        public float horizontalTresholdPercent = 0.01f;
-        public float verticalTresholdPercent = 0.01f;
-        public string horizontalParamName = "blendX";
-        public string verticalParamName = "blendY";
-        bool isPointerDown = false;
+    public float horizontalTresholdPercent = 0.01f;
+    public float verticalTresholdPercent = 0.01f;
+    public string horizontalParamName = "blendX";
+    public string verticalParamName = "blendY";
+    private bool isPointerDown = false;
 
-        public Vector2 Input => _input;
+    public Vector2 Input => _input;
 
-        private const int c_nonPointer = -2973642;
-        private int _lastPointerId;
-        [SerializeField] private PlayerMovement player;
-        private Vector2 _lastPoint;
-        private Vector2 _mousePos;
-        private Vector2 _input;
+    private const int c_nonPointer = -2973642;
+    private int _lastPointerId;
+    [SerializeField] private PlayerMovement player;
+    private Vector2 _lastPoint;
+    private Vector2 _mousePos;
+    private Vector2 _input;
+    private Vector3 startPlayerPos;
+    private bool isPositive;
 
+    private void Awake()
+    {
+        _lastPointerId = c_nonPointer;
+        //joyPad.gameObject.SetActive(false);
+        Invoke(nameof(LateAwake), 0.1f);
+    }
 
-        Vector3 startPlayerPos;
-        bool isPositive;
+    private void LateAwake()
+    {
 
-        private void Awake()
+        player = FindObjectOfType<PlayerMovement>();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (_lastPointerId == c_nonPointer)
         {
-            _lastPointerId = c_nonPointer;
+            //joyPad.gameObject.SetActive(true);
+            _lastPointerId = eventData.pointerId;
+            _lastPoint = eventData.position;
+
+            isPointerDown = true;
+            startPlayerPos = player.transform.position;
+            Debug.Log("bastým");
+        }
+    }
+
+    void IDragHandler.OnDrag(PointerEventData eventData)
+    {
+        if (_lastPointerId == eventData.pointerId)
+        {
+            Drag(eventData.position);
+        }
+    }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.pointerId == _lastPointerId)
+        {
             //joyPad.gameObject.SetActive(false);
-            Invoke(nameof(LateAwake), 0.1f);
-        }
+            _lastPointerId = c_nonPointer;
+            //_lastPoint =
+            _input = Vector2.zero;
+            isPointerDown = false;
+            player.Input = Vector3.zero;
 
-        private void LateAwake()
-        {
-            
         }
+    }
 
-        public void OnPointerDown(PointerEventData eventData)
+
+    private void Drag(Vector2 mousePos)
+    {
+        if (mousePos.x > _mousePos.x)
         {
-            if (_lastPointerId == c_nonPointer)
+            if (!isPositive)
             {
-                //joyPad.gameObject.SetActive(true);
-                _lastPointerId = eventData.pointerId;
-                _lastPoint = eventData.position;
-              
-                isPointerDown = true;
-                startPlayerPos = player.transform.position;
-                Debug.Log("bastým");
+                _lastPoint = mousePos;
             }
+            isPositive = true;
         }
-
-        void IDragHandler.OnDrag(PointerEventData eventData)
+        else if (mousePos.x < _mousePos.x)
         {
-            if (_lastPointerId == eventData.pointerId)
+            if (isPositive)
             {
-                Drag(eventData.position);
+                _lastPoint = mousePos;
             }
-        }
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (eventData.pointerId == _lastPointerId)
-            {
-                //joyPad.gameObject.SetActive(false);
-                _lastPointerId = c_nonPointer;
-                //_lastPoint =
-                _input = Vector2.zero;
-                isPointerDown = false;
-                player.Input = Vector3.zero;
-
-            }
+            isPositive = false;
         }
 
-
-        private void Drag(Vector2 mousePos)
+        var diff = mousePos - _lastPoint;
+        _mousePos = mousePos;
+        if (Mathf.Abs(diff.x) / Screen.width < horizontalTresholdPercent)
         {
-            if (mousePos.x>_mousePos.x)
+            diff.x = 0;
+        }
+        if (Mathf.Abs(diff.y) / Screen.height < verticalTresholdPercent)
+        {
+            diff.y = 0;
+        }
+        //Debug.Log("mouse " + mousePos.x + "lastx " + _lastPoint.x + "diff " + diff);
+        _input = 2 * diff / 3;
+
+
+
+    }
+
+    private void Update()
+    {
+        if (player != null)
+        {
+
+
+
+            if (isPointerDown)
             {
-                if (!isPositive)
+
+
+                if (_input.y >= 0)
                 {
-                    _lastPoint = mousePos;
+                    _input.y = Mathf.Clamp(_input.y - (player.transform.position.y - startPlayerPos.y) * 50, -2, 2);
                 }
-                isPositive = true;
-            }
-            else if (mousePos.x < _mousePos.x)
-            {
-                if (isPositive)
+                else
                 {
-                    _lastPoint = mousePos;
+                    _input.y = Mathf.Clamp(_input.y - (player.transform.position.y - startPlayerPos.y) * 50, -2, 2);
                 }
-                isPositive = false;
-            }
-
-            var diff = mousePos - _lastPoint;
-            _mousePos = mousePos;
-            if (Mathf.Abs(diff.x) / Screen.width < horizontalTresholdPercent)
-            {
-                diff.x = 0;
-            }
-            if (Mathf.Abs(diff.y) / Screen.height < verticalTresholdPercent)
-            {
-                diff.y = 0;
-            }
-            //Debug.Log("mouse "+mousePos.x+"lastx "+ _lastPoint.x+ "diff "+diff);
-            _input = 2*diff/3;
-
-
-            
-        }
-
-        private void Update()
-        {
-            if (player != null)
-            {
-                
-                player.Input = _input;
-
-                if (isPointerDown)
-                {
-                    
-                   
-                        if (_input.y>=0)
-                        {
-                            _input.y = Mathf.Clamp(_input.y - (player.transform.position.y - startPlayerPos.y) * 50, -2, 2);
-                        }
-                        else
-                        {
-                            _input.y = Mathf.Clamp(_input.y - (player.transform.position.y - startPlayerPos.y) * 50, -2, 2);
-                        }
 
                 startPlayerPos.y = player.transform.position.y;
-                  
-                    
-                }
+
+                player.Input = _input;
             }
         }
+    }
 }

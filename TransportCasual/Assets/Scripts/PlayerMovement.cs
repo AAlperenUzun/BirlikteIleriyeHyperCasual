@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -34,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         roadWidth = transform.parent.parent.GetComponent<Player>().RoadMeshCreator.roadWidth;
-       
+
     }
 
 
@@ -54,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         EventManager.StopListening(Events.VehicleChange, OnVehicleChange);
         EventManager.StopListening(Events.LevelFinished, OnFinish);
     }
-    
+
     private void OnVehicleChange(EventParam param)
     {
         SusPooler.instance.SpawnFromPool("SmokePoofs", transform.position, Quaternion.identity);
@@ -64,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Started = true;
     }
-    
+
     private void OnFinish(EventParam param)
     {
         Started = false;
@@ -72,14 +70,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-  /*      StopIfNoTouch()*/;
+        /*      StopIfNoTouch()*/
+        ;
         HandleInput(Input);
     }
 
     //private void SwipeDetector_OnSwipe(SwipeData data)
     //{
     //    if (!Started) return;
-        
+
     //    noTouchTimer = 0.1f;
     //    int direction = data.Direction == SwipeDirection.Left ? -1 : 1;
 
@@ -91,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     //    TiltCar(locVel.y);
     //    rb.velocity = transform.TransformDirection(locVel);
-        
+
     //}
 
     //private void StopIfNoTouch()
@@ -106,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
     //        locVel.y = 0f;
     //        TiltCar(locVel.y);
     //        rb.velocity = transform.TransformDirection(locVel);
-            
+
     //    }
     //}
 
@@ -124,16 +123,20 @@ public class PlayerMovement : MonoBehaviour
         var tempPos = transform.position;
         if (isCenter)
         {
-            tempPos.y = Mathf.Lerp(tempPos.y , 0, 2f * Time.deltaTime);
+            Debug.Log("im center boi");
+            tempPos.x = Mathf.Lerp(tempPos.x, 0, 2f * Time.deltaTime);
         }
         else
         {
-            tempPos.y = Mathf.Clamp(tempPos.y + (input.y) * swipeMoveSpeed * Time.deltaTime, -5.5f, 5.5f);
+            //Debug.Log($"clamp( {tempPos.y + (input.x) * swipeMoveSpeed }, {-5.5f}, {5.5f} )");
+            tempPos.x = Mathf.Clamp(tempPos.x + (input.x) * swipeMoveSpeed * Time.deltaTime, -5.5f, 5.5f);
         }
         //tempPos.x += (input.x) * sideSpeed*Time.deltaTime;
         //tempPos.z += 0.1f * speed;
+        Debug.Log(tempPos);
         rb.MovePosition(tempPos);
-        //transform.position = tempPos;
+
+        //transform.localPosition = tempPos;
 
     }
 
