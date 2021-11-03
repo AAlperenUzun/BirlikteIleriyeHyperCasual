@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float roadEdgeMargin = .5f;
 
     private float roadWidth;
-    public Vector2 Input;
+    [NonSerialized]public Vector2 Input;
     private float RoadMin => RoadMax * -1;
     private float RoadMax => roadWidth - 0.5f;
     public bool Started { get; set; }
@@ -121,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
         var input = notNormalinput;
         var tempPos = transform.position;
+   
         if (isCenter)
         {
             Debug.Log("im center boi");
@@ -128,12 +129,17 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+           //Debug.Log(input.x);
             //Debug.Log($"clamp( {tempPos.y + (input.x) * swipeMoveSpeed }, {-5.5f}, {5.5f} )");
-            tempPos.x = Mathf.Clamp(tempPos.x + (input.x) * swipeMoveSpeed * Time.deltaTime, -5.5f, 5.5f);
+            tempPos.x = Mathf.Clamp(tempPos.x+ (input.x) * swipeMoveSpeed * Time.deltaTime, -50.5f, 50.5f);
+            //Debug.Log(tempPos.x);
         }
         //tempPos.x += (input.x) * sideSpeed*Time.deltaTime;
         //tempPos.z += 0.1f * speed;
-        Debug.Log(tempPos);
+        //Debug.Log(tempPos);
+
+        //transform.position = tempPos;
+
         rb.MovePosition(tempPos);
 
         //transform.localPosition = tempPos;
