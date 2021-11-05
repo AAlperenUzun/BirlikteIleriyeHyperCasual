@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         var input = notNormalinput;
-        var tempPos = transform.position;
+        var tempPos = transform.localPosition;
    
         if (isCenter)
         {
@@ -131,16 +131,16 @@ public class PlayerMovement : MonoBehaviour
         {
            //Debug.Log(input.x);
             //Debug.Log($"clamp( {tempPos.y + (input.x) * swipeMoveSpeed }, {-5.5f}, {5.5f} )");
-            tempPos.x = Mathf.Clamp(tempPos.x+ (input.x) * swipeMoveSpeed * Time.deltaTime, -50.5f, 50.5f);
+            tempPos.y = Mathf.Clamp(tempPos.y+ (input.x) * swipeMoveSpeed * Time.deltaTime, -5.5f, 5.5f);
             //Debug.Log(tempPos.x);
         }
         //tempPos.x += (input.x) * sideSpeed*Time.deltaTime;
         //tempPos.z += 0.1f * speed;
         //Debug.Log(tempPos);
 
-        //transform.position = tempPos;
+        transform.localPosition = tempPos;
 
-        rb.MovePosition(tempPos);
+        //rb.MovePosition(tempPos);
 
         //transform.localPosition = tempPos;
 

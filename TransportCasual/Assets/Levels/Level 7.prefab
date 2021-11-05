@@ -71710,6 +71710,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6207034927809362818, guid: 7b5b0e6a943d4a14ca46d88cf3453076, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207034927809362818, guid: 7b5b0e6a943d4a14ca46d88cf3453076, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207034927809362818, guid: 7b5b0e6a943d4a14ca46d88cf3453076, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9150088110546763652, guid: 7b5b0e6a943d4a14ca46d88cf3453076, type: 3}
       propertyPath: player
       value: 

@@ -43,7 +43,7 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             _lastPoint = eventData.position;
 
             isPointerDown = true;
-            startPlayerPos = player.transform.position;
+            startPlayerPos = player.transform.localPosition;
             Debug.Log("bastým");
         }
     }
@@ -100,10 +100,8 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             diff.y = 0;
         }
         //Debug.Log("mouse " + mousePos.x + "lastx " + _lastPoint.x + "diff " + diff);
-        _input = 2 * diff / 3;
-
-
-
+        _input = diff / 2;
+        //Debug.Log("dif"+ diff);
     }
 
     private void Update()
@@ -115,20 +113,25 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
             if (isPointerDown)
             {
+                //Debug.Log(player.transform.localPosition.y - startPlayerPos.y);
+                //Debug.Log(_lastPoint.y+ " "+ _mousePos.y);
+                _lastPoint.y = Mathf.MoveTowards(_lastPoint.y, _mousePos.y, Mathf.Abs(_lastPoint.y - _mousePos.y) * 10 * Time.deltaTime);
+                //_lastPoint = _mousePos;
+              
 
-
-                if (_input.y >= 0)
+                if (_input.x >= 0)
                 {
-                    _input.y = Mathf.Clamp(_input.y - (player.transform.position.y - startPlayerPos.y) * 50, -2, 2);
+                    _input.x = Mathf.Clamp(_input.x - (player.transform.localPosition.y - startPlayerPos.y) * 50, 0, 500);
                 }
                 else
                 {
-                    _input.y = Mathf.Clamp(_input.y - (player.transform.position.y - startPlayerPos.y) * 50, -2, 2);
+                    _input.x = Mathf.Clamp(_input.x - (player.transform.localPosition.y - startPlayerPos.y) * 50, -500, 0);
                 }
-
-                startPlayerPos.y = player.transform.position.y;
-
                 player.Input = _input;
+
+                _lastPoint.x = _mousePos.x;
+                startPlayerPos.y = player.transform.localPosition.y;
+
             }
         }
     }
