@@ -14,7 +14,8 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private const int c_nonPointer = -2973642;
     private int _lastPointerId;
-    [SerializeField] private PlayerMovement player;
+    public Player player;
+    private PlayerMovement playerMov;
     private Vector2 _lastPoint;
     private Vector2 _mousePos;
     private Vector2 _input;
@@ -25,15 +26,11 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         _lastPointerId = c_nonPointer;
         //joyPad.gameObject.SetActive(false);
-        Invoke(nameof(LateAwake), 0.1f);
     }
-
-    private void LateAwake()
+    public void ChangeRb()
     {
-
-        player = FindObjectOfType<PlayerMovement>();
+        playerMov = player.currentVehicle.GetComponentInChildren<PlayerMovement>();
     }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_lastPointerId == c_nonPointer)
@@ -43,8 +40,7 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             _lastPoint = eventData.position;
 
             isPointerDown = true;
-            startPlayerPos = player.transform.localPosition;
-            Debug.Log("bastým");
+            startPlayerPos = playerMov.transform.localPosition;
         }
     }
 
@@ -64,7 +60,7 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             //_lastPoint =
             _input = Vector2.zero;
             isPointerDown = false;
-            player.Input = Vector3.zero;
+            playerMov.Input = Vector3.zero;
 
         }
     }
@@ -91,22 +87,22 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
         var diff = mousePos - _lastPoint;
         _mousePos = mousePos;
-        if (Mathf.Abs(diff.x) / Screen.width < horizontalTresholdPercent)
-        {
-            diff.x = 0;
-        }
-        if (Mathf.Abs(diff.y) / Screen.height < verticalTresholdPercent)
-        {
-            diff.y = 0;
-        }
+        //if (Mathf.Abs(diff.x) / Screen.width < horizontalTresholdPercent)
+        //{
+        //    diff.x = 0;
+        //}
+        //if (Mathf.Abs(diff.y) / Screen.height < verticalTresholdPercent)
+        //{
+        //    diff.y = 0;
+        //}
         //Debug.Log("mouse " + mousePos.x + "lastx " + _lastPoint.x + "diff " + diff);
-        _input = diff / 2;
+        _input = diff/2;
         //Debug.Log("dif"+ diff);
     }
 
     private void Update()
     {
-        if (player != null)
+        if (playerMov != null)
         {
 
 
@@ -115,22 +111,22 @@ public class SwipeControls : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             {
                 //Debug.Log(player.transform.localPosition.y - startPlayerPos.y);
                 //Debug.Log(_lastPoint.y+ " "+ _mousePos.y);
-                _lastPoint.y = Mathf.MoveTowards(_lastPoint.y, _mousePos.y, Mathf.Abs(_lastPoint.y - _mousePos.y) * 10 * Time.deltaTime);
+                _lastPoint.y = Mathf.MoveTowards(_lastPoint.y, _mousePos.y, Mathf.Abs(_lastPoint.y - _mousePos.y) * 50 * Time.deltaTime);
                 //_lastPoint = _mousePos;
               
 
-                if (_input.x >= 0)
+                if (_input.x > 0)
                 {
-                    _input.x = Mathf.Clamp(_input.x - (player.transform.localPosition.y - startPlayerPos.y) * 50, 0, 500);
+                    _input.x = Mathf.Clamp(_input.x - (playerMov.transform.localPosition.y - startPlayerPos.y) * 10, 0, 500);
                 }
-                else
+                else if(_input.x < 0)
                 {
-                    _input.x = Mathf.Clamp(_input.x - (player.transform.localPosition.y - startPlayerPos.y) * 50, -500, 0);
+                    _input.x = Mathf.Clamp(_input.x - (playerMov.transform.localPosition.y - startPlayerPos.y) *10, -500, 0);
                 }
-                player.Input = _input;
+                playerMov.Input = _input;
 
                 _lastPoint.x = _mousePos.x;
-                startPlayerPos.y = player.transform.localPosition.y;
+                startPlayerPos.y = playerMov.transform.localPosition.y;
 
             }
         }

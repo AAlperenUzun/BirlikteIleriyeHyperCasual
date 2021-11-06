@@ -108,7 +108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 117227790438034110}
-  - {fileID: 7833678427754193891}
+  - {fileID: 3676524300890760379}
   m_Father: {fileID: 2823102844826324808}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -127,8 +127,7 @@ MonoBehaviour:
   swipeMoveSpeed: 0.3
   carTiltSpeed: 5
   isPlane: 1
-  roadEdgeMargin: 0.5
-  Input: {x: 0, y: 0}
+  roadEdgeMargin: 3.5
 --- !u!65 &6458243361808562923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -165,6 +164,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4689913184640192000}
     m_Modifications:
+    - target: {fileID: 559345053765251353, guid: c261a0d7b68b40849a6414493994c0c2, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6372667161563772481, guid: c261a0d7b68b40849a6414493994c0c2, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -215,9 +218,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c261a0d7b68b40849a6414493994c0c2, type: 3}
---- !u!4 &7833678427754193891 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6372667161563772481, guid: c261a0d7b68b40849a6414493994c0c2, type: 3}
+--- !u!224 &3676524300890760379 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 559345053765251353, guid: c261a0d7b68b40849a6414493994c0c2, type: 3}
   m_PrefabInstance: {fileID: 3802887479194015138}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3926787446450621628

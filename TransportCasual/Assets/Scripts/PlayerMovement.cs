@@ -68,13 +68,6 @@ public class PlayerMovement : MonoBehaviour
         Started = false;
     }
 
-    private void FixedUpdate()
-    {
-        /*      StopIfNoTouch()*/
-        ;
-        HandleInput(Input);
-    }
-
     //private void SwipeDetector_OnSwipe(SwipeData data)
     //{
     //    if (!Started) return;
@@ -108,7 +101,10 @@ public class PlayerMovement : MonoBehaviour
 
     //    }
     //}
-
+    private void Update()
+    {
+        HandleInput(Input);
+    }
     private void TiltCar(float tiltAmount)
     {
         Quaternion target = !isPlane ? Quaternion.Euler(-tiltAmount, 0, 0) : Quaternion.Euler(0, 0, -tiltAmount);
@@ -131,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         {
            //Debug.Log(input.x);
             //Debug.Log($"clamp( {tempPos.y + (input.x) * swipeMoveSpeed }, {-5.5f}, {5.5f} )");
-            tempPos.y = Mathf.Clamp(tempPos.y+ (input.x) * swipeMoveSpeed * Time.deltaTime, -5.5f, 5.5f);
+            tempPos.y = Mathf.Clamp(tempPos.y+ (input.x) * swipeMoveSpeed * Time.deltaTime, -roadEdgeMargin, roadEdgeMargin);
             //Debug.Log(tempPos.x);
         }
         //tempPos.x += (input.x) * sideSpeed*Time.deltaTime;

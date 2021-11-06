@@ -1,11 +1,12 @@
 ﻿using PathCreation;
 using PathCreation.Examples;
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     private int currentVehicleIndex;
-    private Transform currentVehicle;
+    [NonSerialized]public Transform currentVehicle;
 
     public PathCreator pathCreator;
 
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     private bool started;
 
     public GameObject objectToActivate;
+    [NonSerialized] public SwipeControls swipeControls;
 
     public RoadMeshCreator RoadMeshCreator { get; private set; }
 
@@ -32,6 +34,10 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        swipeControls = FindObjectOfType<SwipeControls>();
+        swipeControls.player = this;
+        swipeControls.ChangeRb();
+        Debug.Log("ha");
         RoadMeshCreator.TriggerUpdate();
         distanceTraveled += vehicle.speed * Time.deltaTime * 10;
         //transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled, EndOfPathInstruction.Stop);
@@ -104,6 +110,7 @@ public class Player : MonoBehaviour
         newMovement.transform.position = oldMovement.transform.position;
         currentVehicle.gameObject.SetActive(true);
         vehicle = currentVehicle.GetComponent<Vehicle>();
+        swipeControls.ChangeRb();
     }
 
     private void OnTap(EventParam param)

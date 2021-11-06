@@ -140,7 +140,7 @@ MonoBehaviour:
   swipeMoveSpeed: 0.3
   carTiltSpeed: 5
   isPlane: 1
-  roadEdgeMargin: 0.5
+  roadEdgeMargin: 3.5
 --- !u!65 &6458243361808562923
 BoxCollider:
   m_ObjectHideFlags: 0
